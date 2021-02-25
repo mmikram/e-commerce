@@ -115,11 +115,18 @@ public class AdminController {
                         case ActionName.SAVE_TEMP_PRODUCT:
                             return validationUtil.saveTempProduct(standardRequest.getData());
                         case ActionName.LIST_TEMP_PRODUCT:
-                            return validationUtil.tempProdustList();
+                            return validationUtil.tempProdustList(standardRequest.getData());
                         case ActionName.SAVE_TEMP_ORDER:
                             return validationUtil.saveTempOrder(standardRequest.getData());
                         case ActionName.LIST_TEMP_ORDER:
-                            return validationUtil.listOfTempOrder();
+                            return validationUtil.listOfTempOrder(standardRequest.getData());
+                        case ActionName.CUSTOMER_ADDRESS_SAVE:
+                            return validationUtil.saveCustomerAddress(standardRequest.getData());
+                        case ActionName.GET_CUSTOMER_ADDRESS:
+                            return validationUtil.customerAddress(standardRequest.getData());
+                        case ActionName.CUSTOMER_ORDER:
+                            return validationUtil.customerOders(standardRequest.getData());
+                     
                         default:
                             return CommanUtil.errorResponse("Action Not Match");
                     }

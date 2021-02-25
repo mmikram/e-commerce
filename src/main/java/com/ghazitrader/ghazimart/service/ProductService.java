@@ -13,6 +13,8 @@ import com.ghazitrader.ghazimart.model.ProductValue;
 import com.ghazitrader.ghazimart.model.TempProduct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -115,9 +117,10 @@ public class ProductService {
         return tempProductRepository.save(entity);
     }
 
-    public List<TempProduct> listOfTempProduct() {
+    public List<TempProduct> listOfTempProduct(final int page, final int size) {
+        Pageable firstPageWithTwoElements = PageRequest.of(page, size);
         final List<TempProduct> tempProducts = new ArrayList<>();
-        tempProductRepository.findAll().forEach(action -> tempProducts.add(action));
+        tempProductRepository.findAll(firstPageWithTwoElements).forEach(action -> tempProducts.add(action));
         return tempProducts;
     }
 

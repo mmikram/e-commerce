@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AddressRepository  extends CrudRepository<AddressDetails, Integer>{
-    public List<AddressDetails> findByCustId(final int custId);
+    public List<AddressDetails> findByMobile(final String mobile);
     
 }

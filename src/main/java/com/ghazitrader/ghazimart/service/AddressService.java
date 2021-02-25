@@ -18,12 +18,12 @@ public class AddressService {
     private AddressStoreRepository addressStoreRepository;
 
 
-    public void saveAddress(final AddressDetails addressDetails){
-        addressRepository.save(addressDetails);
+    public AddressDetails saveAddress(final AddressDetails addressDetails){
+       return addressRepository.save(addressDetails);
     }
 
-    public List<AddressDetails> custAddress(final int custId){
-        return addressRepository.findByCustId(custId);
+    public List<AddressDetails> custAddressByMobile(final String mobile){
+        return addressRepository.findByMobile(mobile);
     }
 
     public AddressStore saveStoreAddress(final AddressStore entity){

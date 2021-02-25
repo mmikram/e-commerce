@@ -31,7 +31,7 @@ public class AddressDetails {
     @Column(nullable = true)
     private String logitute;
     @Column
-    private int custId;
+    private String mobile;
     
     public int getAddressId() {
         return addressId;
@@ -105,12 +105,14 @@ public class AddressDetails {
         this.logitute = logitute;
     }
 
-    public int getCustId() {
-        return custId;
+   
+
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setCustId(int custId) {
-        this.custId = custId;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
     
 }

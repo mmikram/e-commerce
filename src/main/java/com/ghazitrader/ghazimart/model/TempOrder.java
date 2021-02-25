@@ -34,6 +34,9 @@ public class TempOrder {
     @Column
     private String orederDate;
 
+    @Column
+    private String deliveryDate;
+
     public int getId() {
         return id;
     }
@@ -112,6 +115,14 @@ public class TempOrder {
 
     public void setOrederDate(String orederDate) {
         this.orederDate = orederDate;
+    }
+
+    public String getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(String deliveryDate) {
+        this.deliveryDate = deliveryDate;
     }
 
     

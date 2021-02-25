@@ -27,6 +27,9 @@ public class TempProduct {
     @Column
     private int status;
 
+    @Column
+    private String actualPrice;
+
     public int getProductId() {
         return productId;
     }
@@ -73,6 +76,14 @@ public class TempProduct {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getActualPrice() {
+        return actualPrice;
+    }
+
+    public void setActualPrice(String actualPrice) {
+        this.actualPrice = actualPrice;
     }
 
 

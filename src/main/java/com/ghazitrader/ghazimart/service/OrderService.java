@@ -8,6 +8,8 @@ import com.ghazitrader.ghazimart.model.OrderDetails;
 import com.ghazitrader.ghazimart.model.TempOrder;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -35,9 +37,13 @@ public class OrderService {
         tempOrderRepository.save(entity);
     }
 
-    public List<TempOrder> activeTempOrder(){
-        return tempOrderRepository.tempOrders();
+    public List<TempOrder> activeTempOrder(final int status,final int page, final int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return tempOrderRepository.findByStatus(status,pageable);
     }
 
-
+    public List<TempOrder> customerTempOrders(final String custMobile,final int page, final int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return tempOrderRepository.findByCustMobile(custMobile,pageable);
+    }
 }

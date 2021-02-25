@@ -4,13 +4,15 @@ import java.util.List;
 
 import com.ghazitrader.ghazimart.model.TempOrder;
 
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TempOrderRepository extends CrudRepository<TempOrder, Integer>{
+public interface TempOrderRepository extends PagingAndSortingRepository<TempOrder, Integer>{
 
-    @Query(value = "SELECT * FROM temp_order WHERE status = 1", nativeQuery = true)
-    public List<TempOrder> tempOrders();
+    public List<TempOrder> findByStatus(final int status,final Pageable pageable);
+
+    public List<TempOrder> findByCustMobile(final String custMobile,final Pageable pageable);
+
 }

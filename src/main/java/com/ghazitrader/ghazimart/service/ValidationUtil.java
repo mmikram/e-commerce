@@ -9,6 +9,7 @@ import java.util.List;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
+import com.ghazitrader.ghazimart.model.AddressDetails;
 import com.ghazitrader.ghazimart.model.AddressStore;
 import com.ghazitrader.ghazimart.model.AdminModel;
 import com.ghazitrader.ghazimart.model.BannerModel;
@@ -461,6 +462,26 @@ public class ValidationUtil {
         }
     }
 
+    /**
+     * Address Management
+     * 
+     */
+
+    public StandardResponse saveCustomerAddress(final String data) {
+        final AddressDetails addressDetails = ConvertorUtil.convertStringToObject(data, AddressDetails.class);
+        return CommanUtil.getResponse(ConvertorUtil.convertObjectToString(addressService.saveAddress(addressDetails)));
+    }
+
+    public StandardResponse customerAddress(final String data) {
+        String mobile = ConvertorUtil.getJsonValue(data, "mobile");
+        return CommanUtil.getResponse(ConvertorUtil.convertObjectToString(addressService.custAddressByMobile(mobile)));
+    }
+
+    /**
+     * Temp Address Management
+     * 
+     */
+
     public StandardResponse saveCustAddress(final String data) {
         final AddressStore addressStore = ConvertorUtil.convertStringToObject(data, AddressStore.class);
         return CommanUtil
@@ -488,31 +509,45 @@ public class ValidationUtil {
         return CommanUtil.getResponse(ConvertorUtil.convertObjectToString(productService.addTempProduct(tempProduct)));
     }
 
-    public StandardResponse tempProdustList() {
-        return CommanUtil.getResponse(ConvertorUtil.convertObjectToString(productService.listOfTempProduct()));
+    public StandardResponse tempProdustList(final String data) {
+        String page = ConvertorUtil.getJsonValue(data, "page");
+        String size = ConvertorUtil.getJsonValue(data, "size");
+
+        return CommanUtil.getResponse(ConvertorUtil.convertObjectToString(productService.listOfTempProduct(ConvertorUtil.stringToInt(page),ConvertorUtil.stringToInt(size))));
     }
 
-    public StandardResponse saveTempOrder(final String data){
+    public StandardResponse saveTempOrder(final String data) {
         final TempOrder tempOrder = ConvertorUtil.convertStringToObject(data, TempOrder.class);
         orderService.saveTempOrder(tempOrder);
         return CommanUtil.getResponse("Your Order Placed Successfully");
-     }
+    }
 
-     public StandardResponse listOfTempOrder(){
-        return CommanUtil.getResponse(ConvertorUtil.convertObjectToString(orderService.activeTempOrder()));
-     }
+    public StandardResponse listOfTempOrder(final String data) {
+        String page = ConvertorUtil.getJsonValue(data, "page");
+        String size = ConvertorUtil.getJsonValue(data, "size");
+        String status = ConvertorUtil.getJsonValue(data, "status");
+        return CommanUtil.getResponse(ConvertorUtil.convertObjectToString(orderService.activeTempOrder(ConvertorUtil.stringToInt(status),ConvertorUtil.stringToInt(page),ConvertorUtil.stringToInt(size))));
+    }
 
-     public TempProduct updateTempProductBanner(final String fileKey, final MultipartFile file, final int productId){
-         File multipartFile;
-         try {
-             multipartFile = convertMultiPartToFile(file);
-             s3client.putObject(bucketName, fileKey, multipartFile);
+    public StandardResponse customerOders(final String data){
+        String page = ConvertorUtil.getJsonValue(data, "page");
+        String size = ConvertorUtil.getJsonValue(data, "size");
+        String mobile = ConvertorUtil.getJsonValue(data, "mobile");
+        return CommanUtil.getResponse(ConvertorUtil.convertObjectToString(orderService.customerTempOrders(mobile,ConvertorUtil.stringToInt(page),ConvertorUtil.stringToInt(size))));
+
+    }
+
+    public TempProduct updateTempProductBanner(final String fileKey, final MultipartFile file, final int productId) {
+        File multipartFile;
+        try {
+            multipartFile = convertMultiPartToFile(file);
+            s3client.putObject(bucketName, fileKey, multipartFile);
             return productService.updatTempProductBanner(productId, fileKey);
 
-         } catch (IOException e) {
-             e.printStackTrace();
-         }
-     return null;
-     }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }
