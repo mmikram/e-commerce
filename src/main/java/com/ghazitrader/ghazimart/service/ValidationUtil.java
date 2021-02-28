@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
+import com.amazonaws.services.cloudfront.model.PriceClass;
 import com.amazonaws.services.s3.AmazonS3;
 import com.ghazitrader.ghazimart.model.AddressDetails;
 import com.ghazitrader.ghazimart.model.AddressStore;
@@ -19,6 +20,7 @@ import com.ghazitrader.ghazimart.model.HomeDisplayItem;
 import com.ghazitrader.ghazimart.model.HomeScreen;
 import com.ghazitrader.ghazimart.model.OfferMappingModel;
 import com.ghazitrader.ghazimart.model.OrderDetails;
+import com.ghazitrader.ghazimart.model.PriceDetails;
 import com.ghazitrader.ghazimart.model.ProductCategory;
 import com.ghazitrader.ghazimart.model.ProductModel;
 import com.ghazitrader.ghazimart.model.ProductValue;
@@ -513,7 +515,8 @@ public class ValidationUtil {
         String page = ConvertorUtil.getJsonValue(data, "page");
         String size = ConvertorUtil.getJsonValue(data, "size");
 
-        return CommanUtil.getResponse(ConvertorUtil.convertObjectToString(productService.listOfTempProduct(ConvertorUtil.stringToInt(page),ConvertorUtil.stringToInt(size))));
+        return CommanUtil.getResponse(ConvertorUtil.convertObjectToString(
+                productService.listOfTempProduct(ConvertorUtil.stringToInt(page), ConvertorUtil.stringToInt(size))));
     }
 
     public StandardResponse saveTempOrder(final String data) {
@@ -526,14 +529,16 @@ public class ValidationUtil {
         String page = ConvertorUtil.getJsonValue(data, "page");
         String size = ConvertorUtil.getJsonValue(data, "size");
         String status = ConvertorUtil.getJsonValue(data, "status");
-        return CommanUtil.getResponse(ConvertorUtil.convertObjectToString(orderService.activeTempOrder(ConvertorUtil.stringToInt(status),ConvertorUtil.stringToInt(page),ConvertorUtil.stringToInt(size))));
+        return CommanUtil.getResponse(ConvertorUtil.convertObjectToString(orderService.activeTempOrder(
+                ConvertorUtil.stringToInt(status), ConvertorUtil.stringToInt(page), ConvertorUtil.stringToInt(size))));
     }
 
-    public StandardResponse customerOders(final String data){
+    public StandardResponse customerOders(final String data) {
         String page = ConvertorUtil.getJsonValue(data, "page");
         String size = ConvertorUtil.getJsonValue(data, "size");
         String mobile = ConvertorUtil.getJsonValue(data, "mobile");
-        return CommanUtil.getResponse(ConvertorUtil.convertObjectToString(orderService.customerTempOrders(mobile,ConvertorUtil.stringToInt(page),ConvertorUtil.stringToInt(size))));
+        return CommanUtil.getResponse(ConvertorUtil.convertObjectToString(orderService.customerTempOrders(mobile,
+                ConvertorUtil.stringToInt(page), ConvertorUtil.stringToInt(size))));
 
     }
 
@@ -548,6 +553,19 @@ public class ValidationUtil {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public StandardResponse savePrice(final String data) {
+        final PriceDetails priceDetails = ConvertorUtil.convertStringToObject(data, PriceDetails.class);
+        return CommanUtil.getResponse(ConvertorUtil.convertObjectToString(productService.savePrice(priceDetails)));
+
+    }
+
+    public StandardResponse produstPriceList(final String data) {
+        String page = ConvertorUtil.getJsonValue(data, "page");
+        String size = ConvertorUtil.getJsonValue(data, "size");
+        return CommanUtil.getResponse(ConvertorUtil.convertObjectToString(
+                productService.listOfProductPrice(ConvertorUtil.stringToInt(page), ConvertorUtil.stringToInt(size))));
     }
 
 }

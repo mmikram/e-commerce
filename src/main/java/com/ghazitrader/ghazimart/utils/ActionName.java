@@ -44,5 +44,7 @@ public class ActionName {
     public final static String CUSTOMER_ADDRESS_SAVE = "CustomerAddresSave";
     public final static String GET_CUSTOMER_ADDRESS = "CustomerAddress";
     public final static String CUSTOMER_ORDER = "CustomerOder";
+    public final static String PRICE_SAVE = "priceSave";
+    public final static String PRODUCT_PRICE_LIST = "productPriceList";
 
 }

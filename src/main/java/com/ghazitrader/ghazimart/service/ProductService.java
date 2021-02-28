@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ghazitrader.ghazimart.dao.OfferMappingRepository;
+import com.ghazitrader.ghazimart.dao.PriceRepository;
 import com.ghazitrader.ghazimart.dao.ProductRepository;
 import com.ghazitrader.ghazimart.dao.ProductValueRepository;
 import com.ghazitrader.ghazimart.dao.TempProductRepository;
 import com.ghazitrader.ghazimart.model.OfferMappingModel;
+import com.ghazitrader.ghazimart.model.PriceDetails;
 import com.ghazitrader.ghazimart.model.ProductModel;
 import com.ghazitrader.ghazimart.model.ProductValue;
 import com.ghazitrader.ghazimart.model.TempProduct;
@@ -31,6 +33,9 @@ public class ProductService {
 
     @Autowired
     private TempProductRepository tempProductRepository;
+
+    @Autowired
+    private PriceRepository priceRepository;
 
     public ProductModel saveProduct(final ProductModel product) {
         return productRepository.save(product);
@@ -128,5 +133,16 @@ public class ProductService {
         final TempProduct tempProduct = tempProductRepository.findById(productId).get();
         tempProduct.setBanner(banner);
         return tempProductRepository.save(tempProduct);
+    }
+
+    public PriceDetails savePrice(final PriceDetails entity){
+        return priceRepository.save(entity);
+    }
+
+    public List<PriceDetails> listOfProductPrice(final int page, final int size) {
+        Pageable firstPageWithTwoElements = PageRequest.of(page, size);
+        final List<PriceDetails> productPrice = new ArrayList<>();
+        priceRepository.findAll(firstPageWithTwoElements).forEach(action -> productPrice.add(action));
+        return productPrice;
     }
 }

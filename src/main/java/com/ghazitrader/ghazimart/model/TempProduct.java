@@ -1,10 +1,16 @@
 package com.ghazitrader.ghazimart.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Table
@@ -29,6 +35,11 @@ public class TempProduct {
 
     @Column
     private String actualPrice;
+
+    @OneToMany(targetEntity = PriceDetails.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "productId",referencedColumnName = "productId")
+    public List<PriceDetails> priceList;
+
 
     public int getProductId() {
         return productId;

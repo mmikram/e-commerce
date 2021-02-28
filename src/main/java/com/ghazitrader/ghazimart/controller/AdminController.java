@@ -126,7 +126,10 @@ public class AdminController {
                             return validationUtil.customerAddress(standardRequest.getData());
                         case ActionName.CUSTOMER_ORDER:
                             return validationUtil.customerOders(standardRequest.getData());
-                     
+                        case ActionName.PRICE_SAVE:
+                            return validationUtil.savePrice(standardRequest.getData());
+                        case ActionName.PRODUCT_PRICE_LIST:
+                            return validationUtil.produstPriceList(standardRequest.getData());
                         default:
                             return CommanUtil.errorResponse("Action Not Match");
                     }
