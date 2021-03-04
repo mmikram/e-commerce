@@ -26,15 +26,11 @@ public class TempProduct {
     private String productName;
     @Column
     private String banner;
-    @Column
-    private String price;
+    
     @Column
     private String description;
     @Column
     private int status;
-
-    @Column
-    private String actualPrice;
 
     @OneToMany(targetEntity = PriceDetails.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "productId",referencedColumnName = "productId")
@@ -65,13 +61,6 @@ public class TempProduct {
         this.banner = banner;
     }
 
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
 
     public String getDescription() {
         return description;
@@ -89,14 +78,5 @@ public class TempProduct {
         this.status = status;
     }
 
-    public String getActualPrice() {
-        return actualPrice;
-    }
-
-    public void setActualPrice(String actualPrice) {
-        this.actualPrice = actualPrice;
-    }
-
-
-    
+      
 }

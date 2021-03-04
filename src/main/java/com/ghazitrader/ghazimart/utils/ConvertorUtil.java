@@ -1,5 +1,7 @@
 package com.ghazitrader.ghazimart.utils;
 
+import java.util.List;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,6 +16,7 @@ public class ConvertorUtil {
             return e.getMessage();
         }
     }
+
 
     public static <T> T convertStringToObject(final String jsonString, final Class<T> genericObject) {
         try {
@@ -41,6 +44,16 @@ public class ConvertorUtil {
     }
     public static int stringToInt(final String value){
        return Integer.parseInt(value);
+    }
+
+    public static String listToJson(final List<Integer> productIds){
+        try {
+            return objectMapper.writeValueAsString(productIds);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
 }

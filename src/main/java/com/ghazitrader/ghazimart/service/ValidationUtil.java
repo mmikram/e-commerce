@@ -8,7 +8,6 @@ import java.util.List;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
-import com.amazonaws.services.cloudfront.model.PriceClass;
 import com.amazonaws.services.s3.AmazonS3;
 import com.ghazitrader.ghazimart.model.AddressDetails;
 import com.ghazitrader.ghazimart.model.AddressStore;
@@ -16,7 +15,6 @@ import com.ghazitrader.ghazimart.model.AdminModel;
 import com.ghazitrader.ghazimart.model.BannerModel;
 import com.ghazitrader.ghazimart.model.Customer;
 import com.ghazitrader.ghazimart.model.Favourite;
-import com.ghazitrader.ghazimart.model.HomeDisplayItem;
 import com.ghazitrader.ghazimart.model.HomeScreen;
 import com.ghazitrader.ghazimart.model.OfferMappingModel;
 import com.ghazitrader.ghazimart.model.OrderDetails;
@@ -521,6 +519,7 @@ public class ValidationUtil {
 
     public StandardResponse saveTempOrder(final String data) {
         final TempOrder tempOrder = ConvertorUtil.convertStringToObject(data, TempOrder.class);
+        
         orderService.saveTempOrder(tempOrder);
         return CommanUtil.getResponse("Your Order Placed Successfully");
     }
