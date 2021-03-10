@@ -1,5 +1,8 @@
 package com.ghazitrader.ghazimart.utils;
 
+import java.text.DecimalFormat;
+import java.util.Random;
+
 import com.ghazitrader.ghazimart.model.StandardResponse;
 
 public class CommanUtil {
@@ -41,6 +44,14 @@ public class CommanUtil {
         response.setDescription(description);
         response.setStatusCode(30);
         return response;
+    }
+
+    public static String generateOTP(){
+
+        String otp= new DecimalFormat("000000").format(new Random().nextInt(999999));
+
+        return otp;
+
     }
    
 }

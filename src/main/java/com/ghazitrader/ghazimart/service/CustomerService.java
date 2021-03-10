@@ -12,7 +12,15 @@ public class CustomerService {
     @Autowired
     public CustomerRepository customerRepository;
 
-    public void registerCustomer(final Customer customer) {
-        customerRepository.save(customer);
+    public Customer registerCustomer(final Customer customer) {
+       return customerRepository.save(customer);
+    }
+
+    public String getVerifyOTP(final String mobileNo){
+        return customerRepository.getOTPByMobileNo(mobileNo);
+    }
+
+    public Customer getAlreadyRegisterMobileNo(final String mobileNo){
+        return customerRepository.findByMobileNo(mobileNo);
     }
 }

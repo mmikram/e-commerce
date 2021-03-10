@@ -23,6 +23,7 @@ import com.ghazitrader.ghazimart.model.ProductCategory;
 import com.ghazitrader.ghazimart.model.ProductModel;
 import com.ghazitrader.ghazimart.model.ProductValue;
 import com.ghazitrader.ghazimart.model.StandardResponse;
+import com.ghazitrader.ghazimart.model.OTPServiceResponse;
 import com.ghazitrader.ghazimart.model.SubCategory;
 import com.ghazitrader.ghazimart.model.TempOrder;
 import com.ghazitrader.ghazimart.model.TempProduct;
@@ -34,7 +35,13 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
@@ -519,7 +526,7 @@ public class ValidationUtil {
 
     public StandardResponse saveTempOrder(final String data) {
         final TempOrder tempOrder = ConvertorUtil.convertStringToObject(data, TempOrder.class);
-        
+
         orderService.saveTempOrder(tempOrder);
         return CommanUtil.getResponse("Your Order Placed Successfully");
     }
@@ -567,4 +574,49 @@ public class ValidationUtil {
                 productService.listOfProductPrice(ConvertorUtil.stringToInt(page), ConvertorUtil.stringToInt(size))));
     }
 
+    public StandardResponse customerRagistration(final String data) {
+        final String mobile = ConvertorUtil.getJsonValue(data, "mobile");
+        final String fcmToken = ConvertorUtil.getJsonValue(data, "fcmToken");
+        final String sentOTP = customerService.getVerifyOTP(mobile);
+        Customer customer = new Customer();
+        final String otp = CommanUtil.generateOTP();
+
+        if (null != sentOTP) {
+            customer = customerService.getAlreadyRegisterMobileNo(mobile);
+        } else {
+            customer.setMobileNo(mobile);
+            customer.setLoginType("Mobile");
+        }
+
+        customer.setLoginId(otp);
+        customer.setFcmToken(fcmToken);
+        final String message = otp + Constants.SMS;
+        final String body = ConvertorUtil.otpRequest(mobile, message);
+        sendOTPService(body);
+        return CommanUtil.getResponse(ConvertorUtil.convertObjectToString(customerService.registerCustomer(customer)));
+    }
+
+    private void sendOTPService(final String body) {
+        final RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.add("authorization", Constants.OTP_TOKEN);
+        HttpEntity<String> request = new HttpEntity<>(body, headers);
+        restTemplate.exchange(Constants.OTP_SERVIC_URL, HttpMethod.POST, request, OTPServiceResponse.class);
+    }
+
+    public StandardResponse verifyOtp(final String data) {
+        final String mobile = ConvertorUtil.getJsonValue(data, "mobile");
+        final String otp = ConvertorUtil.getJsonValue(data, "otp");
+
+        final String sentOTP = customerService.getVerifyOTP(mobile);
+
+        if (otp.equals(sentOTP)) {
+            return CommanUtil.getResponse("Your Mobile Number Veified Successfully");
+
+        } else {
+            return CommanUtil.errorResponse("Invalide OTP");
+        }
+
+    }
 }
