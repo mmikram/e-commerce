@@ -48,5 +48,6 @@ public class ActionName {
     public final static String PRODUCT_PRICE_LIST = "productPriceList";
     public final static String SENT_OTP = "SendOTP";
     public final static String VERYFY_OTP = "VerifyOTP";
+    public final static String PRODUCT_SEARCH = "ProductSearch";
 
 }

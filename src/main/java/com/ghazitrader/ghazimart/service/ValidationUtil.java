@@ -617,6 +617,10 @@ public class ValidationUtil {
         } else {
             return CommanUtil.errorResponse("Invalide OTP");
         }
+    }
 
+    public StandardResponse searchQueryForProduct(final String data){
+        final String txt = ConvertorUtil.getJsonValue(data, "txt");
+        return CommanUtil.getResponse(ConvertorUtil.convertObjectToString(productService.searchProduct(txt)));
     }
 }

@@ -134,6 +134,8 @@ public class AdminController {
                         return validationUtil.customerRagistration(standardRequest.getData());
                     case ActionName.VERYFY_OTP:
                         return validationUtil.verifyOtp(standardRequest.getData());
+                    case ActionName.PRODUCT_SEARCH:
+                        return validationUtil.searchQueryForProduct(standardRequest.getData());
                     default:
                         return CommanUtil.errorResponse("Action Not Match");
                     }

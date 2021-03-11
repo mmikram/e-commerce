@@ -145,4 +145,12 @@ public class ProductService {
         priceRepository.findAll(firstPageWithTwoElements).forEach(action -> productPrice.add(action));
         return productPrice;
     }
+
+    public List<TempProduct> searchProduct(final String txt){
+        if (txt.length()>2) {
+            return tempProductRepository.search(txt, txt, txt);
+        }else{
+            return null;
+        }
+    }
 }

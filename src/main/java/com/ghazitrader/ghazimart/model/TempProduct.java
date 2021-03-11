@@ -31,6 +31,9 @@ public class TempProduct {
     private String description;
     @Column
     private int status;
+    @Column(length = 400)
+    private String productSearch;
+
 
     @OneToMany(targetEntity = PriceDetails.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "productId",referencedColumnName = "productId")
@@ -76,6 +79,14 @@ public class TempProduct {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getProductSearch() {
+        return productSearch;
+    }
+
+    public void setProductSearch(String productSearch) {
+        this.productSearch = productSearch;
     }
 
       
