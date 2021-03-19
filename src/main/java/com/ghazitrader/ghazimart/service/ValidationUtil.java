@@ -9,6 +9,7 @@ import java.util.List;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
+import com.ghazitrader.ghazimart.model.AddToCard;
 import com.ghazitrader.ghazimart.model.AddressDetails;
 import com.ghazitrader.ghazimart.model.AddressStore;
 import com.ghazitrader.ghazimart.model.AdminModel;
@@ -18,6 +19,7 @@ import com.ghazitrader.ghazimart.model.Favourite;
 import com.ghazitrader.ghazimart.model.HomeScreen;
 import com.ghazitrader.ghazimart.model.OfferMappingModel;
 import com.ghazitrader.ghazimart.model.OrderDetails;
+import com.ghazitrader.ghazimart.model.OrderProduct;
 import com.ghazitrader.ghazimart.model.PriceDetails;
 import com.ghazitrader.ghazimart.model.ProductCategory;
 import com.ghazitrader.ghazimart.model.ProductModel;
@@ -619,8 +621,27 @@ public class ValidationUtil {
         }
     }
 
-    public StandardResponse searchQueryForProduct(final String data){
+    public StandardResponse searchQueryForProduct(final String data) {
         final String txt = ConvertorUtil.getJsonValue(data, "txt");
         return CommanUtil.getResponse(ConvertorUtil.convertObjectToString(productService.searchProduct(txt)));
+    }
+
+    public StandardResponse getCardItem(final String data) {
+        final String mobile = ConvertorUtil.getJsonValue(data, "mobile");
+        final List<AddToCard> cartItems = orderService.getCartItem(mobile);
+        return CommanUtil.getResponse(ConvertorUtil.convertObjectToString(productService.getProductByIds(cartItems)));
+
+    }
+
+    public StandardResponse saveCartItem(final String data) {
+        final AddToCard addToCard = ConvertorUtil.convertStringToObject(data, AddToCard.class);
+        orderService.addToCart(addToCard);
+        return CommanUtil.getResponse("Item Added To Cart");
+    }
+
+    public StandardResponse removeCartItem(final String data) {
+        final AddToCard addToCard = ConvertorUtil.convertStringToObject(data, AddToCard.class);
+        orderService.removeSingleCartItem(addToCard);
+        return CommanUtil.getResponse("Item Removed From Cart");
     }
 }

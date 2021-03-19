@@ -8,7 +8,9 @@ import com.ghazitrader.ghazimart.dao.PriceRepository;
 import com.ghazitrader.ghazimart.dao.ProductRepository;
 import com.ghazitrader.ghazimart.dao.ProductValueRepository;
 import com.ghazitrader.ghazimart.dao.TempProductRepository;
+import com.ghazitrader.ghazimart.model.AddToCard;
 import com.ghazitrader.ghazimart.model.OfferMappingModel;
+import com.ghazitrader.ghazimart.model.OrderProduct;
 import com.ghazitrader.ghazimart.model.PriceDetails;
 import com.ghazitrader.ghazimart.model.ProductModel;
 import com.ghazitrader.ghazimart.model.ProductValue;
@@ -135,7 +137,7 @@ public class ProductService {
         return tempProductRepository.save(tempProduct);
     }
 
-    public PriceDetails savePrice(final PriceDetails entity){
+    public PriceDetails savePrice(final PriceDetails entity) {
         return priceRepository.save(entity);
     }
 
@@ -146,11 +148,34 @@ public class ProductService {
         return productPrice;
     }
 
-    public List<TempProduct> searchProduct(final String txt){
-        if (txt.length()>2) {
+    public List<TempProduct> searchProduct(final String txt) {
+        if (txt.length() > 2) {
             return tempProductRepository.search(txt, txt, txt);
-        }else{
+        } else {
             return null;
         }
+    }
+
+    public List<OrderProduct> getProductByIds(final List<AddToCard> ids) {
+        final List<OrderProduct> products = new ArrayList<>();
+        for (final AddToCard addToCard : ids) {
+            final OrderProduct orderProduct = new OrderProduct();
+            final TempProduct product = tempProductRepository.findById(addToCard.getProductId()).get();
+            orderProduct.setFileName(product.getBanner());
+            orderProduct.setProductId(product.getProductId());
+            orderProduct.setProductName(product.getProductName());
+            for (final PriceDetails details : product.priceList) {
+                if (details.getId() == addToCard.getPriceId()) {
+                    orderProduct.setPacking(details.getPackaging());
+                    orderProduct.setPrice(details.getSellingPrice());
+                    orderProduct.setQuantity(addToCard.getQuantity());
+                    orderProduct.setPriceId(details.getId());
+                }
+            }
+
+            products.add(orderProduct);
+        }
+
+        return products;
     }
 }

@@ -2,8 +2,10 @@ package com.ghazitrader.ghazimart.service;
 
 import java.util.List;
 
+import com.ghazitrader.ghazimart.dao.AddToCardRepository;
 import com.ghazitrader.ghazimart.dao.OrderRepository;
 import com.ghazitrader.ghazimart.dao.TempOrderRepository;
+import com.ghazitrader.ghazimart.model.AddToCard;
 import com.ghazitrader.ghazimart.model.OrderDetails;
 import com.ghazitrader.ghazimart.model.TempOrder;
 
@@ -17,6 +19,9 @@ public class OrderService {
 
     @Autowired
     public OrderRepository orderRepository;
+
+    @Autowired
+    public AddToCardRepository addToCardRepository;
 
     @Autowired
     public TempOrderRepository tempOrderRepository;
@@ -34,7 +39,10 @@ public class OrderService {
      */
 
     public void saveTempOrder(final TempOrder entity) {
-        tempOrderRepository.save(entity);
+       final String mobileNo= tempOrderRepository.save(entity).getCustMobile();
+       if (null!=mobileNo) {
+           addToCardRepository.deleteByMobileNo(mobileNo);
+       }
     }
 
     public List<TempOrder> activeTempOrder(final int status,final int page, final int size) {
@@ -46,4 +54,19 @@ public class OrderService {
         Pageable pageable = PageRequest.of(page, size);
         return tempOrderRepository.findByCustMobile(custMobile,pageable);
     }
+
+    public void addToCart(final AddToCard addToCard){
+        addToCardRepository.save(addToCard);
+    }
+
+    public List<AddToCard> getCartItem(final String mobile){
+        return addToCardRepository.findByMobileNo(mobile);
+    }
+
+    public void removeSingleCartItem(final AddToCard addToCard){
+        addToCardRepository.delete(addToCard);
+    }
+
+    
+
 }

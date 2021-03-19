@@ -9,28 +9,20 @@ import javax.persistence.Table;
 
 @Entity
 @Table
-public class OrderProduct {
-
-    @Column
+public class AddToCard {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
     @Column
-    private String productName;
+    private int id;
     @Column
     private int productId;
     @Column
     private int priceId;
     @Column
-    private String fileName;
-   
-    @Column
-    private String price;
+    private String mobileNo;
+
     @Column
     private int quantity;
-    @Column
-    private String packing;
-   
 
     public int getId() {
         return id;
@@ -38,14 +30,6 @@ public class OrderProduct {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
     }
 
     public int getProductId() {
@@ -64,21 +48,12 @@ public class OrderProduct {
         this.priceId = priceId;
     }
 
-    public String getFileName() {
-        return fileName;
+    public String getMobileNo() {
+        return mobileNo;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
+    public void setMobileNo(String mobileNo) {
+        this.mobileNo = mobileNo;
     }
 
     public int getQuantity() {
@@ -89,14 +64,4 @@ public class OrderProduct {
         this.quantity = quantity;
     }
 
-    public String getPacking() {
-        return packing;
-    }
-
-    public void setPacking(String packing) {
-        this.packing = packing;
-    }
-
-
-    
 }

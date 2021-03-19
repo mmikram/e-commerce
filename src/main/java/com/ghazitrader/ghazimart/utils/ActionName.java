@@ -49,5 +49,8 @@ public class ActionName {
     public final static String SENT_OTP = "SendOTP";
     public final static String VERYFY_OTP = "VerifyOTP";
     public final static String PRODUCT_SEARCH = "ProductSearch";
+    public final static String ADD_TO_CART = "AddToCard";
+    public final static String CART_ITEMS = "CartItems";
+    public final static String REMOVE_CART_ITEM = "RemoveCartItem";
 
 }

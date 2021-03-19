@@ -21,7 +21,7 @@ public class PriceDetails {
     @Column
     private String packaging;
     @Column
-    private String quantity;
+    private int quantity;
     @Column
     private int status;
     @Column
@@ -59,11 +59,11 @@ public class PriceDetails {
         this.packaging = packaging;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 

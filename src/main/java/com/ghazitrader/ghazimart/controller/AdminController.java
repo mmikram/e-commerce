@@ -136,6 +136,12 @@ public class AdminController {
                         return validationUtil.verifyOtp(standardRequest.getData());
                     case ActionName.PRODUCT_SEARCH:
                         return validationUtil.searchQueryForProduct(standardRequest.getData());
+                    case ActionName.ADD_TO_CART:
+                        return validationUtil.saveCartItem(standardRequest.getData());
+                    case ActionName.CART_ITEMS:
+                        return validationUtil.getCardItem(standardRequest.getData());
+                    case ActionName.REMOVE_CART_ITEM:
+                        return validationUtil.removeCartItem(standardRequest.getData());
                     default:
                         return CommanUtil.errorResponse("Action Not Match");
                     }
