@@ -67,6 +67,9 @@ public class OrderService {
         addToCardRepository.delete(addToCard);
     }
 
-    
+    public int getTotalNumberOfCard(final String mobile){
+       return addToCardRepository.totalCart(mobile);
+    }
+
 
 }

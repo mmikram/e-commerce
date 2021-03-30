@@ -7,6 +7,16 @@ public class HomeScreen {
     private List<SubCategory> slidingItems;
     private List<HomeDisplayItem> homeDisplayItem;
 
+    public int getTotalCartItem() {
+        return totalCartItem;
+    }
+
+    public void setTotalCartItem(int totalCartItem) {
+        this.totalCartItem = totalCartItem;
+    }
+
+    private int totalCartItem;
+
     public List<ProductCategory> getCategories() {
         return categories;
     }

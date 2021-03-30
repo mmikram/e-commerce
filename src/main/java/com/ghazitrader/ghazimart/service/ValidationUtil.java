@@ -388,8 +388,10 @@ public class ValidationUtil {
      * 
      * @return
      */
-    public StandardResponse HomeScreenData() {
+    public StandardResponse HomeScreenData(final String data) {
+        String mobile = ConvertorUtil.getJsonValue(data, "mobile");
         final HomeScreen homeScree = new HomeScreen();
+        homeScree.setTotalCartItem(orderService.getTotalNumberOfCard(mobile));
         homeScree.setSlidingItems(categoryService.getSlidItem());
         final List<ProductCategory> categories = categoryService.getRandomCategory();
         homeScree.setCategories(categories);

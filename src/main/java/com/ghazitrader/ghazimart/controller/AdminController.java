@@ -105,7 +105,7 @@ public class AdminController {
                     case ActionName.DELETE_SLIDE_OFFER:
                         return validationUtil.removeSlideOfferBySubCategory(standardRequest.getData());
                     case ActionName.HOME_SCREEN:
-                        return validationUtil.HomeScreenData();
+                        return validationUtil.HomeScreenData(standardRequest.getData());
                     case ActionName.SAVE_STORE_ADDRESS:
                         return validationUtil.saveCustAddress(standardRequest.getData());
                     case ActionName.STORE_ADDRESS_MOBILE:
