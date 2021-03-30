@@ -45,7 +45,7 @@ public class ProductService {
 
     /**
      * get All product
-     * 
+     *
      * @return
      */
     public List<ProductModel> getAllProduct() {
@@ -172,10 +172,12 @@ public class ProductService {
                     orderProduct.setPriceId(details.getId());
                 }
             }
-
             products.add(orderProduct);
         }
-
         return products;
+    }
+
+    public List<TempProduct> productByCategory(final int catId){
+        return tempProductRepository.getByCatId(catId);
     }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 public class HomeScreen {
     private List<ProductCategory> categories;
     private List<SubCategory> slidingItems;
-    private List<ProductCategory> homeDisplayItem;
+    private List<HomeDisplayItem> homeDisplayItem;
 
     public List<ProductCategory> getCategories() {
         return categories;
@@ -23,11 +23,11 @@ public class HomeScreen {
         this.slidingItems = slidingItems;
     }
 
-    public List<ProductCategory> getHomeDisplayItem() {
+    public List<HomeDisplayItem> getHomeDisplayItem() {
         return homeDisplayItem;
     }
 
-    public void setHomeDisplayItem(List<ProductCategory> homeDisplayItem) {
+    public void setHomeDisplayItem(List<HomeDisplayItem> homeDisplayItem) {
         this.homeDisplayItem = homeDisplayItem;
     }
 

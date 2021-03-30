@@ -5,7 +5,7 @@ import java.util.List;
 public class HomeDisplayItem {
     private int catId;
     private String catName;
-    private List<SubCategory> categories;
+    private List<TempProduct> products;
 
     public int getCatId() {
         return catId;
@@ -23,11 +23,11 @@ public class HomeDisplayItem {
         this.catName = catName;
     }
 
-    public List<SubCategory> getCategories() {
-        return categories;
+    public List<TempProduct> getProducts() {
+        return products;
     }
 
-    public void setCategories(List<SubCategory> categories) {
-        this.categories = categories;
+    public void setProducts(List<TempProduct> products) {
+        this.products = products;
     }
    }

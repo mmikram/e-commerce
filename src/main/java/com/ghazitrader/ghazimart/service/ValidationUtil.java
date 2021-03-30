@@ -16,10 +16,10 @@ import com.ghazitrader.ghazimart.model.AdminModel;
 import com.ghazitrader.ghazimart.model.BannerModel;
 import com.ghazitrader.ghazimart.model.Customer;
 import com.ghazitrader.ghazimart.model.Favourite;
+import com.ghazitrader.ghazimart.model.HomeDisplayItem;
 import com.ghazitrader.ghazimart.model.HomeScreen;
 import com.ghazitrader.ghazimart.model.OfferMappingModel;
 import com.ghazitrader.ghazimart.model.OrderDetails;
-import com.ghazitrader.ghazimart.model.OrderProduct;
 import com.ghazitrader.ghazimart.model.PriceDetails;
 import com.ghazitrader.ghazimart.model.ProductCategory;
 import com.ghazitrader.ghazimart.model.ProductModel;
@@ -41,7 +41,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
@@ -390,30 +389,22 @@ public class ValidationUtil {
      * @return
      */
     public StandardResponse HomeScreenData() {
-
         final HomeScreen homeScree = new HomeScreen();
-        // final List<HomeDisplayItem> homeDisplayItems = new ArrayList<>();
-        final List<ProductCategory> categories = categoryService.getRandomCategory();
-
-        // homeScree.setCategories(categories);
         homeScree.setSlidingItems(categoryService.getSlidItem());
+        final List<ProductCategory> categories = categoryService.getRandomCategory();
+        homeScree.setCategories(categories);
+        final List<HomeDisplayItem> homeDisplayItems = new ArrayList<>();
 
-        homeScree.setHomeDisplayItem(categories);
+        for (ProductCategory pc : categories) {
+            final HomeDisplayItem displayItem = new HomeDisplayItem();
+            displayItem.setCatId(pc.getCatId());
+            displayItem.setCatName(pc.getName());
+            displayItem.setProducts(productService.productByCategory(pc.getCatId()));
+            homeDisplayItems.add(displayItem);
+        }
+        homeScree.setHomeDisplayItem(homeDisplayItems);
         return CommanUtil.getResponse(ConvertorUtil.convertObjectToString(homeScree));
     }
-
-    // public StandardResponse HomeScreenProductList() {
-    // final List<ProductCategory> categories = categoryService.getRandomCategory();
-    // for (ProductCategory pc : categories) {
-    // final HomeDisplayItem displayItem = new HomeDisplayItem();
-    // displayItem.setCatId(pc.getCatId());
-    // displayItem.setCatName(pc.getName());
-    // final List<SubCategory> subCategories =
-    // categoryService.getSubCatByCatId(pc.getCatId());
-    // displayItem.setCategories(subCategories);
-    // homeDisplayItems.add(displayItem);
-    // }
-    // }
 
     public void putCatBanner(final int catId, final String banner) {
         categoryService.updatCatBanner(catId, banner);

@@ -31,6 +31,9 @@ public class TempProduct {
     private String description;
     @Column
     private int status;
+
+    @Column
+    private int catId;
     @Column(length = 400)
     private String productSearch;
 
@@ -87,6 +90,14 @@ public class TempProduct {
 
     public void setProductSearch(String productSearch) {
         this.productSearch = productSearch;
+    }
+
+    public int getCatId() {
+        return catId;
+    }
+
+    public void setCatId(int catId) {
+        this.catId = catId;
     }
 
       
