@@ -31,6 +31,15 @@ public class OrderProduct {
     @Column
     private String packing;
    
+    private int cartId;
+
+    public int getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(int cartId) {
+        this.cartId = cartId;
+    }
 
     public int getId() {
         return id;

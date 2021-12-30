@@ -162,6 +162,7 @@ public class ProductService {
             final OrderProduct orderProduct = new OrderProduct();
             final TempProduct product = tempProductRepository.findById(addToCard.getProductId()).get();
             orderProduct.setFileName(product.getBanner());
+            orderProduct.setCartId(addToCard.getId());
             orderProduct.setProductId(product.getProductId());
             orderProduct.setProductName(product.getProductName());
             for (final PriceDetails details : product.priceList) {
