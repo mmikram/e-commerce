@@ -181,4 +181,19 @@ public class ProductService {
     public List<TempProduct> productByCategory(final int catId){
         return tempProductRepository.getByCatId(catId);
     }
+
+
+    public List<TempProduct> productByCategories(final List<Integer> catId,final int sttus){
+        if(sttus==1){
+            return tempProductRepository.getProductByCatIds(catId);
+        }else{
+            return tempProductRepository.getActiviProductByCatIds(catId);
+        }
+    }
+
+    public void updateProductStatus(final int productId, final int status) {
+        tempProductRepository.verifyProduct(productId,status);
+    }
+
+    
 }

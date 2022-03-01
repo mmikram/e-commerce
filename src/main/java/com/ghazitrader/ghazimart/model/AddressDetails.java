@@ -9,11 +9,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table
-public class AddressDetails {
+public class    AddressDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column
-    private int addressId;
+    private int id;
+
+
     @Column(length = 200)
     private String address1;
     @Column
@@ -31,15 +32,59 @@ public class AddressDetails {
     @Column(nullable = true)
     private String logitute;
     @Column
-    private String mobile;
-    
-    public int getAddressId() {
-        return addressId;
+    private String locallity;
+    public String getLocallity() {
+        return locallity;
     }
 
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
+    public void setLocallity(String locallity) {
+        this.locallity = locallity;
     }
+
+    @Column
+    private String mobile;
+
+    @Column
+    private String deliveryMobile;
+    @Column
+    private String addressType;   
+
+    private int isDefault;
+    
+   
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getIsDefault() {
+        return isDefault;
+    }
+
+    public void setIsDefault(int isDefault) {
+        this.isDefault = isDefault;
+    }
+
+    public String getDeliveryMobile() {
+        return deliveryMobile;
+    }
+
+    public void setDeliveryMobile(String deliveryMobile) {
+        this.deliveryMobile = deliveryMobile;
+    }
+
+    public String getAddressType() {
+        return addressType;
+    }
+
+    public void setAddressType(String addressType) {
+        this.addressType = addressType;
+    }
+
+   
 
     public String getAddress1() {
         return address1;

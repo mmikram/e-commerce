@@ -9,6 +9,16 @@
             "mainClass": "com.ghazitrader.ghazimart.ProjecttestApplication",
             "projectName": "ghazimart",
             "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ProjecttestApplication<ghaziapp>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.ghazitrader.ghazimart.ProjecttestApplication",
+            "projectName": "ghaziapp",
+            "args": ""
         }
     ]
 }

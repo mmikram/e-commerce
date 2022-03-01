@@ -209,7 +209,23 @@ public class ValidationUtil {
      */
     public StandardResponse updateVerifiedProduct(final String data) {
         String productId = ConvertorUtil.getJsonValue(data, "productId");
-        productService.verifiedProduct(ConvertorUtil.stringToInt(productId));
+        String status = ConvertorUtil.getJsonValue(data, "status");
+
+        productService.updateProductStatus(ConvertorUtil.stringToInt(productId),ConvertorUtil.stringToInt(status));
+        return CommanUtil.getResponse(Constants.SUCCESSFULLY);
+    }
+
+     /**
+     * Verified Product
+     * 
+     * @param data Product Id
+     * @return Success response
+     */
+    public StandardResponse updateOrderStatus(final String data) {
+        String productId = ConvertorUtil.getJsonValue(data, "orderId");
+        String status = ConvertorUtil.getJsonValue(data, "status");
+
+        orderService.updateOrderStatus(ConvertorUtil.stringToInt(productId),ConvertorUtil.stringToInt(status));
         return CommanUtil.getResponse(Constants.SUCCESSFULLY);
     }
 
@@ -519,6 +535,20 @@ public class ValidationUtil {
                 productService.listOfTempProduct(ConvertorUtil.stringToInt(page), ConvertorUtil.stringToInt(size))));
     }
 
+    public StandardResponse catProdustList(final String data) {
+       
+        String stringCatIds = ConvertorUtil.getJsonValue(data, "catIds");
+        final String[] catIds = stringCatIds.split(",");
+
+        List<Integer> intList = new ArrayList<Integer>();
+        String status = ConvertorUtil.getJsonValue(data, "status");
+
+        for(String s : catIds) intList.add(Integer.valueOf(s));
+
+        return CommanUtil.getResponse(ConvertorUtil.convertObjectToString(
+                productService.productByCategories(intList,ConvertorUtil.stringToInt(status))));
+    }
+
     public StandardResponse saveTempOrder(final String data) {
         final TempOrder tempOrder = ConvertorUtil.convertStringToObject(data, TempOrder.class);
 
@@ -533,6 +563,8 @@ public class ValidationUtil {
         return CommanUtil.getResponse(ConvertorUtil.convertObjectToString(orderService.activeTempOrder(
                 ConvertorUtil.stringToInt(status), ConvertorUtil.stringToInt(page), ConvertorUtil.stringToInt(size))));
     }
+
+    
 
     public StandardResponse customerOders(final String data) {
         String page = ConvertorUtil.getJsonValue(data, "page");
@@ -628,8 +660,9 @@ public class ValidationUtil {
 
     public StandardResponse saveCartItem(final String data) {
         final AddToCard addToCard = ConvertorUtil.convertStringToObject(data, AddToCard.class);
-        orderService.addToCart(addToCard);
-        return CommanUtil.getResponse("Item Added To Cart");
+       int cartId= orderService.addToCart(addToCard);
+       
+        return CommanUtil.getResponse(String.valueOf(cartId));
     }
 
     public StandardResponse removeCartItem(final String data) {
@@ -638,3 +671,4 @@ public class ValidationUtil {
         return CommanUtil.getResponse("Item Removed From Cart");
     }
 }
+

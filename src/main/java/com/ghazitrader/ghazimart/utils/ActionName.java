@@ -52,5 +52,7 @@ public class ActionName {
     public final static String ADD_TO_CART = "AddToCard";
     public final static String CART_ITEMS = "CartItems";
     public final static String REMOVE_CART_ITEM = "RemoveCartItem";
+    public final static String CATEGORIES_ITEMS = "CategoriesItems";
+    public final static String UPDATE_ORDER_STATUS = "UpdateOrderStatus";
 
 }

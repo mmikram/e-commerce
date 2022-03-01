@@ -37,6 +37,39 @@ public class TempOrder {
     @Column
     private String deliveryDate;
 
+    private int paymentStatus;
+    @Column
+    private String paymentMethod;
+
+    @Column
+    private String paymentId;
+
+    
+    public int getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(int paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public String getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(String paymentId) {
+        this.paymentId = paymentId;
+    }
+
+    @Column
     @OneToMany( cascade = CascadeType.ALL)
     @JoinColumn(name = "orderId",referencedColumnName = "orderId")
     public List<OrderProduct> orderProducts= new ArrayList<>();

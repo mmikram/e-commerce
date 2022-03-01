@@ -26,7 +26,18 @@ public class TempProduct {
     private String productName;
     @Column
     private String banner;
+
+    @Column
+    private String returnIn;
     
+    public String getReturnIn() {
+        return returnIn;
+    }
+
+    public void setReturnIn(String returnIn) {
+        this.returnIn = returnIn;
+    }
+
     @Column
     private String description;
     @Column

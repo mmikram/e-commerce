@@ -57,8 +57,8 @@ public class OrderService {
         return tempOrderRepository.findByCustMobile(custMobile,pageable);
     }
 
-    public void addToCart(final AddToCard addToCard){
-        addToCardRepository.save(addToCard);
+    public int addToCart(final AddToCard addToCard){
+       return addToCardRepository.save(addToCard).getId();
     }
 
     public List<AddToCard> getCartItem(final String mobile){
@@ -71,6 +71,10 @@ public class OrderService {
 
     public int getTotalNumberOfCard(final String mobile){
        return addToCardRepository.totalCart(mobile);
+    }
+
+    public void updateOrderStatus(final int orderId,final int status){
+        tempOrderRepository.orderStatus(orderId, status);
     }
 
 
