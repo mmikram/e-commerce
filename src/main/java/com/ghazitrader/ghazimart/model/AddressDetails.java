@@ -18,7 +18,7 @@ public class    AddressDetails {
     @Column(length = 200)
     private String address1;
     @Column
-    private double pincode;
+    private String pincode;
     @Column
     private String city;
     @Column
@@ -33,13 +33,7 @@ public class    AddressDetails {
     private String logitute;
     @Column
     private String locallity;
-    public String getLocallity() {
-        return locallity;
-    }
-
-    public void setLocallity(String locallity) {
-        this.locallity = locallity;
-    }
+   
 
     @Column
     private String mobile;
@@ -50,7 +44,26 @@ public class    AddressDetails {
     private String addressType;   
 
     private int isDefault;
+
+    @Column
+    private String customerName;   
+
     
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getLocallity() {
+        return locallity;
+    }
+
+    public void setLocallity(String locallity) {
+        this.locallity = locallity;
+    }
    
     public int getId() {
         return id;
@@ -94,11 +107,11 @@ public class    AddressDetails {
         this.address1 = address1;
     }
 
-    public double getPincode() {
+    public String getPincode() {
         return pincode;
     }
 
-    public void setPincode(double pincode) {
+    public void setPincode(String pincode) {
         this.pincode = pincode;
     }
 

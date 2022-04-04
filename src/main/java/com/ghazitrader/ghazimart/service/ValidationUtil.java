@@ -409,8 +409,8 @@ public class ValidationUtil {
         final HomeScreen homeScree = new HomeScreen();
         homeScree.setTotalCartItem(orderService.getTotalNumberOfCard(mobile));
         homeScree.setSlidingItems(categoryService.getSlidItem());
-        final List<ProductCategory> categories = categoryService.getRandomCategory();
-        homeScree.setCategories(categories);
+        final List<ProductCategory> categories = categoryService.getAllCatergory();
+        homeScree.setCategories(categoryService.getRandomCategory());
         final List<HomeDisplayItem> homeDisplayItems = new ArrayList<>();
 
         for (ProductCategory pc : categories) {
