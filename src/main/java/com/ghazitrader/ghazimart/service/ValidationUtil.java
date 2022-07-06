@@ -10,6 +10,7 @@ import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.ghazitrader.ghazimart.model.AddToCard;
+import com.ghazitrader.ghazimart.model.AddToCartResponse;
 import com.ghazitrader.ghazimart.model.AddressDetails;
 import com.ghazitrader.ghazimart.model.AddressStore;
 import com.ghazitrader.ghazimart.model.AdminModel;
@@ -211,11 +212,11 @@ public class ValidationUtil {
         String productId = ConvertorUtil.getJsonValue(data, "productId");
         String status = ConvertorUtil.getJsonValue(data, "status");
 
-        productService.updateProductStatus(ConvertorUtil.stringToInt(productId),ConvertorUtil.stringToInt(status));
+        productService.updateProductStatus(ConvertorUtil.stringToInt(productId), ConvertorUtil.stringToInt(status));
         return CommanUtil.getResponse(Constants.SUCCESSFULLY);
     }
 
-     /**
+    /**
      * Verified Product
      * 
      * @param data Product Id
@@ -225,7 +226,7 @@ public class ValidationUtil {
         String productId = ConvertorUtil.getJsonValue(data, "orderId");
         String status = ConvertorUtil.getJsonValue(data, "status");
 
-        orderService.updateOrderStatus(ConvertorUtil.stringToInt(productId),ConvertorUtil.stringToInt(status));
+        orderService.updateOrderStatus(ConvertorUtil.stringToInt(productId), ConvertorUtil.stringToInt(status));
         return CommanUtil.getResponse(Constants.SUCCESSFULLY);
     }
 
@@ -536,17 +537,18 @@ public class ValidationUtil {
     }
 
     public StandardResponse catProdustList(final String data) {
-       
+
         String stringCatIds = ConvertorUtil.getJsonValue(data, "catIds");
         final String[] catIds = stringCatIds.split(",");
 
         List<Integer> intList = new ArrayList<Integer>();
         String status = ConvertorUtil.getJsonValue(data, "status");
 
-        for(String s : catIds) intList.add(Integer.valueOf(s));
+        for (String s : catIds)
+            intList.add(Integer.valueOf(s));
 
         return CommanUtil.getResponse(ConvertorUtil.convertObjectToString(
-                productService.productByCategories(intList,ConvertorUtil.stringToInt(status))));
+                productService.productByCategories(intList, ConvertorUtil.stringToInt(status))));
     }
 
     public StandardResponse saveTempOrder(final String data) {
@@ -563,8 +565,6 @@ public class ValidationUtil {
         return CommanUtil.getResponse(ConvertorUtil.convertObjectToString(orderService.activeTempOrder(
                 ConvertorUtil.stringToInt(status), ConvertorUtil.stringToInt(page), ConvertorUtil.stringToInt(size))));
     }
-
-    
 
     public StandardResponse customerOders(final String data) {
         String page = ConvertorUtil.getJsonValue(data, "page");
@@ -654,14 +654,18 @@ public class ValidationUtil {
     public StandardResponse getCardItem(final String data) {
         final String mobile = ConvertorUtil.getJsonValue(data, "mobile");
         final List<AddToCard> cartItems = orderService.getCartItem(mobile);
-        return CommanUtil.getResponse(ConvertorUtil.convertObjectToString(productService.getProductByIds(cartItems)));
+        final AddressDetails addressDetails = addressService.defaultAddress(mobile);
+        AddToCartResponse addToCartResponse= new AddToCartResponse();
+        addToCartResponse.setCartItems(productService.getProductByIds(cartItems));
+        addToCartResponse.setAddressDetail(addressDetails);
+        return CommanUtil.getResponse(ConvertorUtil.convertObjectToString(addToCartResponse));
 
     }
 
     public StandardResponse saveCartItem(final String data) {
         final AddToCard addToCard = ConvertorUtil.convertStringToObject(data, AddToCard.class);
-       int cartId= orderService.addToCart(addToCard);
-       
+        int cartId = orderService.addToCart(addToCard);
+
         return CommanUtil.getResponse(String.valueOf(cartId));
     }
 
@@ -671,4 +675,3 @@ public class ValidationUtil {
         return CommanUtil.getResponse("Item Removed From Cart");
     }
 }
-

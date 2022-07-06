@@ -22,6 +22,10 @@ public class AddressService {
        return addressRepository.save(addressDetails);
     }
 
+    public AddressDetails defaultAddress(final String mobileNo){
+        return addressRepository.defaultAddress(mobileNo);
+     }
+
     public List<AddressDetails> custAddressByMobile(final String mobile){
         return addressRepository.findByMobile(mobile);
     }
