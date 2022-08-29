@@ -40,11 +40,15 @@ public class OrderService {
      * Temp Order
      */
 
-    public void saveTempOrder(final TempOrder entity) {
-       final String mobileNo= tempOrderRepository.save(entity).getCustMobile();
+    public int saveTempOrder(final TempOrder entity) {
+       final TempOrder saveOrder= tempOrderRepository.save(entity);
+       final String mobileNo= saveOrder.getCustMobile();
+       
        if (null!=mobileNo) {
            addToCardRepository.deleteByMobileNo(mobileNo);
        }
+        return saveOrder.getOrderId();
+
     }
 
     public List<TempOrder> activeTempOrder(final int status,final int page, final int size) {

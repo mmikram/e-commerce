@@ -554,7 +554,10 @@ public class ValidationUtil {
     public StandardResponse saveTempOrder(final String data) {
         final TempOrder tempOrder = ConvertorUtil.convertStringToObject(data, TempOrder.class);
 
-        orderService.saveTempOrder(tempOrder);
+   final int orderId=   orderService.saveTempOrder(tempOrder);
+        final String message = "Hi "+tempOrder.getCustName() +"\n"+ Constants.ORDER+orderId ;
+        final String body = ConvertorUtil.otpRequest(tempOrder.getCustMobile(), message);
+        sendOTPService(body);
         return CommanUtil.getResponse("Your Order Placed Successfully");
     }
 

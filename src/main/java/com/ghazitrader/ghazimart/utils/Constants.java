@@ -17,5 +17,7 @@ public class Constants {
     public final static String OTP_SERVIC_URL = "https://www.fast2sms.com/dev/bulkV2";
     public final static String OTP_TOKEN = "tIbz3DGY9jleopT5SgfOM1KEux8yHN06aAPBiJ4vUVXsrnmhw7JYO9U2yTFAiVgB7SErHeWxPLvmGfRs";
     public final static String SMS = ": Is your Ghazi daily need OTP";
+    public final static String ORDER = ": Your Ghazi Mart Order has been placed #orderId is ";
+
 
 }
