@@ -1,6 +1,6 @@
 # E-commerce Project APIs
 #Java, Spring boot, Hibernate JPA, AWS s3 Bucket, AWS RDS,
-#POINTS\n
+#POINTS/n
 1.Global Search
 2.Mutipart File upload on AWS se Buckets
 3.OTP Service integration.
